@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker - ML Powered</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>🔐 Password Strength Checker</h1>
+                <p>Machine Learning Powered Password Analysis</p>
+            </div>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <input 
+                        type="password" 
+                        id="passwordInput" 
+                        placeholder="Enter your password here..." 
+                        autocomplete="off"
+                    >
+                    <button id="togglePassword" class="toggle-btn" title="Show/Hide Password">
+                        👁️
+                    </button>
+                </div>
+                <button id="checkButton" class="check-btn">Check Strength</button>
+            </div>
+
+            <div id="resultContainer" class="result-container hidden">
+                <div class="result-card">
+                    <div class="strength-display">
+                        <div class="strength-emoji" id="strengthEmoji"></div>
+                        <div class="strength-info">
+                            <h2 id="strengthLabel"></h2>
+                            <p id="strengthAdvice"></p>
+                        </div>
+                    </div>
+
+                    <div class="details">
+                        <div class="detail-item">
+                            <span class="detail-label">Password Length:</span>
+                            <span class="detail-value" id="passwordLength"></span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Confidence:</span>
+                            <span class="detail-value" id="confidence"></span>
+                        </div>
+                    </div>
+
+                    <div class="strength-bar">
+                        <div id="strengthProgress" class="strength-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="tips-section">
+                    <h3>💡 Tips for Strong Passwords</h3>
+                    <ul id="tipsList"></ul>
+                </div>
+            </div>
+
+            <div id="errorContainer" class="error-container hidden">
+                <div class="error-message" id="errorMessage"></div>
+            </div>
+
+            <div class="info-section">
+                <h3>ℹ️ About This Tool</h3>
+                <p>This password strength checker uses Machine Learning (Gradient Boosting) to evaluate password strength based on character-level features. It analyzes patterns and characteristics of your password to provide an accurate strength assessment.</p>
+                <p><strong>Note:</strong> Your passwords are NOT stored or sent anywhere - all analysis is done locally.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
