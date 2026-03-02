@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Checking-Password-Strength-using-Machine-Learning
  
 This is a Python code for building a machine learning model to predict the strength of passwords based on their character-level features. The model is trained on a dataset of passwords labeled as weak, medium, or strong and uses logistic regression and gradient boosting algorithms for classification.
@@ -33,3 +34,6 @@ Seaborn
 Sklearn
 # Acknowledgements
 This project was inspired by the Kaggle dataset on password strength and the corresponding competition. We also acknowledge the open-source Python libraries used in this project and their contributors.
+=======
+# ML-Checking-Password-Strength-w-Flask
+>>>>>>> 988872cade7e1d39c62026964a35d5257c37fba0
