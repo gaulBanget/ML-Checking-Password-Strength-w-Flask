@@ -2,8 +2,12 @@ from flask import Flask, render_template, request, jsonify
 import pickle
 import numpy as np
 import os
+from config import config as app_config
 
 app = Flask(__name__)
+env_name = os.environ.get('FLASK_CONFIG', 'default')
+app.config.from_object(app_config.get(env_name, app_config['default']))
+MIN_WEAK_LENGTH = int(os.environ.get('MIN_WEAK_LENGTH', '4'))
 
 # Character tokenizer function (must be defined here for pickle compatibility)
 def character(inputs):
@@ -12,12 +16,14 @@ def character(inputs):
         characters.append(i)
     return characters
 
-# Load model and vectorizer
 def load_models():
     try:
-        with open('models/gb_model.pkl', 'rb') as f:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(base_dir, 'models', 'gb_model.pkl')
+        vec_path = os.path.join(base_dir, 'models', 'tfidf_vectorizer.pkl')
+        with open(model_path, 'rb') as f:
             model = pickle.load(f)
-        with open('models/tfidf_vectorizer.pkl', 'rb') as f:
+        with open(vec_path, 'rb') as f:
             vectorizer = pickle.load(f)
         return model, vectorizer
     except FileNotFoundError:
@@ -53,6 +59,20 @@ def check_password():
                 'error': 'Password is required',
                 'status': 'error'
             }), 400
+        
+        if len(password) < MIN_WEAK_LENGTH:
+            strength_info = STRENGTH_MAP[0]
+            return jsonify({
+                'password': password,
+                'strength_code': 0,
+                'strength_label': strength_info['label'],
+                'confidence': 100.0,
+                'emoji': strength_info['emoji'],
+                'color': strength_info['color'],
+                'advice': strength_info['advice'],
+                'password_length': len(password),
+                'status': 'success'
+            }), 200
         
         # Vectorize the password
         password_vector = vectorizer.transform([password])
@@ -110,5 +130,5 @@ if __name__ == '__main__':
         print("Please run 'python train_model.py' first to train and save the models.")
     else:
         print("✓ Model and vectorizer loaded successfully!")
-    
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=app.config.get('DEBUG', False), host='0.0.0.0', port=port)

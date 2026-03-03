@@ -1,39 +1,31 @@
-<<<<<<< HEAD
-# Checking-Password-Strength-using-Machine-Learning
- 
-This is a Python code for building a machine learning model to predict the strength of passwords based on their character-level features. The model is trained on a dataset of passwords labeled as weak, medium, or strong and uses logistic regression and gradient boosting algorithms for classification.
+# Checking Password Strength using Machine Learning (Flask App)
 
-# Dataset
+Aplikasi Flask yang memanfaatkan model Machine Learning untuk menilai kekuatan kata sandi berdasarkan fitur karakter-level. Model menggunakan TF-IDF pada karakter dan Gradient Boosting Classifier.
 
-The dataset used for training the model is stored in the "Password Strength.csv" file and contains a list of passwords along with their corresponding strength category. The dataset is preprocessed by dropping the rows with missing values and visualizing the distribution of the password strength categories. Let the features be
+## Dataset
+- Sumber: Password Strength.csv
+- Label kekuatan: 0 (Weak), 1 (Medium), 2 (Strong)
+- Pembersihan: drop nilai kosong dan analisis distribusi label
 
-Password - 670k unique values for password collected online
+## Feature Engineering
+- TF-IDF vectorization pada level karakter untuk mengubah string password menjadi fitur numerik.
 
-Strength - three values(0 , 1 , 2) i.e. 0 for weak, 1 for medium, 2 for strong.
+## Pelatihan & Evaluasi
+- Bagi data menjadi train/test.
+- Latih Gradient Boosting dan evaluasi dengan accuracy, precision, recall, F1.
+- Artefak disimpan ke folder `models/`: `gb_model.pkl`, `tfidf_vectorizer.pkl`.
 
-Strength of the password based on rules(such as containing digits, special symbols , etc.)
+## Cara Pakai
+1. `pip install -r requirements.txt`
+2. `python train_model.py` (opsional untuk latih ulang)
+3. `python app.py`
+4. Buka `http://localhost:5000`
 
-# Feature Engineering
-To convert the password strings into machine-readable features, we use the TF-IDF vectorizer at the character level. This converts each password into a vector of numerical features that capture the importance of each character in the password.
+## Dependensi
+- Flask, scikit-learn, pandas, numpy, matplotlib, seaborn, Werkzeug
 
-# Model Training and Evaluation
-We split the dataset into training and testing sets and train two models, logistic regression and gradient boosting, on the training set. We evaluate the performance of the models on the testing set using metrics such as accuracy, precision, recall, and F1-score.
+## Catatan
+- Analisis dilakukan lokal; kata sandi tidak disimpan atau dikirim keluar.
 
-# Usage
-To use the password strength prediction model, simply run the Python code and input a password when prompted. The model will preprocess the password using the same vectorizer used for training the model and predict its strength category.
-
-# Dependencies
-The code requires the following Python libraries to be installed:
-
-Pandas
-
-numpy
-
-Seaborn
-
-Sklearn
-# Acknowledgements
-This project was inspired by the Kaggle dataset on password strength and the corresponding competition. We also acknowledge the open-source Python libraries used in this project and their contributors.
-=======
-# ML-Checking-Password-Strength-w-Flask
->>>>>>> 988872cade7e1d39c62026964a35d5257c37fba0
+## Lisensi
+Lihat berkas LICENSE.
